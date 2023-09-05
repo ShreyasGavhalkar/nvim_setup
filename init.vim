@@ -50,8 +50,9 @@ require("toggleterm").setup{
 EOF
 
 
-inoremap <expr><TAB> coc#pum#visible() ? coc#pum#next(1) : "\<C-K>"
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-J>"
+"inoremap <expr><TAB> coc#pum#visible() ? coc#pum#next(1) : "\<C-K>"
+"inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-J>"
+inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 nnoremap <silent> <C-t> :tabnew <CR>
 nnoremap <silent> <C-Left> <Cmd>BufferPrevious<CR>
 nnoremap <silent> <C-Right> <Cmd>BufferNext<CR>
