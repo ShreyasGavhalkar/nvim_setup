@@ -10,7 +10,9 @@
 :set showmatch
 :set cursorline
 :set clipboard=unnamedplus
+":set tags=/twbuild/sgavhalkar/work/tarana3/cpu/applications/tags
 :set tags=./tags,tags;$HOME
+
 call plug#begin("~/.vim/plugged")
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox' " Theme
@@ -25,18 +27,19 @@ Plug 'nvim-tree/nvim-web-devicons' " optional
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'tpope/vim-eunuch'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+Plug 'APZelos/blamer.nvim'
 call plug#end()
 
 autocmd vimenter * ++nested colorscheme molokai
 let g:barbar_auto_setup = v:false
-
 lua << EOF
 require'barbar'.setup{
 	highlight_visible = true,
 	insert_at_end = true,
 	animation = true,
---	clickable = true,
+	clickable = true,
 	sidebar_filetypes = {
+		-- Use the default values: {event = 'BufWinLeave', text = nil}
 		NvimTree = true,
 	},
 }
@@ -59,6 +62,7 @@ nnoremap <silent> <C-Right> <Cmd>BufferNext<CR>
 nnoremap <silent> <C-q> <Cmd>BufferClose!<CR>
 nnoremap <C-A-q> <Cmd>BufferCloseAllButCurrent<CR>
 nnoremap <C-f> <Cmd>NvimTreeToggle<CR>
+inoremap <C-f> <Cmd>NvimTreeToggle<CR>
 nnoremap <C-s> :Files <CR>
 tnoremap <Esc> <C-\><C-o>
 inoremap <M-Left> <C-\><C-N><C>h
@@ -70,3 +74,5 @@ nnoremap <M-Down> <C-w>j
 nnoremap <M-Up> <C-w>k
 nnoremap <M-Right> <C-w>l
 nnoremap <M-z> :set number! relativenumber! <CR>
+nnoremap <M-x> :BlamerToggle <CR>
+inoremap <M-x> :BlamerToggle <CR>
