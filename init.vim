@@ -10,7 +10,6 @@
 :set showmatch
 :set cursorline
 :set clipboard=unnamedplus
-":set tags=/twbuild/sgavhalkar/work/tarana3/cpu/applications/tags
 :set tags=./tags,tags;$HOME
 
 call plug#begin("~/.vim/plugged")
@@ -28,6 +27,7 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'tpope/vim-eunuch'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'APZelos/blamer.nvim'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 autocmd vimenter * ++nested colorscheme molokai
@@ -51,6 +51,11 @@ require("toggleterm").setup{
 }
 
 EOF
+
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.fzf#shellescape(<q-args>),
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 
 "inoremap <expr><TAB> coc#pum#visible() ? coc#pum#next(1) : "\<C-K>"
@@ -76,3 +81,5 @@ nnoremap <M-Right> <C-w>l
 nnoremap <M-z> :set number! relativenumber! <CR>
 nnoremap <M-x> :BlamerToggle <CR>
 inoremap <M-x> :BlamerToggle <CR>
+inoremap <silent><nowait><expr> <C-a> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<C-a>"
+inoremap <silent><nowait><expr> <C-q> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-q>"
